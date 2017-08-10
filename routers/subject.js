@@ -3,12 +3,12 @@ var router= express.Router();
 
 var model = require('../models');
 
-router.get('/', (req, res)=> {
-  model.Teacher.findAll().then(teachers => {
-    res.render('teacher', {data_teachers : teachers})
+router.get('/', (req, res)=>{
+  model.Subject.findAll()
+  .then((subjects)=> {
+    res.render('subject', {data_subjects: subjects});
     //res.send(JSON.stringify(teachers, null, 2))
-  })
+  });
 })
-
 
 module.exports = router;
