@@ -38,7 +38,6 @@ router.post('/add', (req, res)=>{
 router.get('/edit/:id', (req, res)=>{
   model.Student.findById(req.params.id)
   .then((student)=>{
-    console.log(student);
     res.render('editStudent', {edit_student: student, errmsg: false})
   })
 })
