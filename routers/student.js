@@ -15,23 +15,12 @@ router.get('/add', (req, res)=>{
 })
 
 router.post('/add', (req, res)=>{
-  model.Student.findOne({
-    where:{
-      email:req.body.email
-    }
+  model.Student.create(req.body)
+  .then(()=>{
+    res.redirect('/students')
   })
-  .then((result)=>{
-    if(!result){
-      model.Student.create(req.body)
-      .then(()=>{
-        res.redirect('/students')
-      })
-      .catch(function(err){
-       res.render('addStudent', {errmsg: err.message});
-      })
-    } else {
-      res.render('addStudent', {errmsg: 'Email sudah terdaftar'});
-    }
+  .catch((err)=>{
+    res.render('addStudent', {errmsg: err.errors[0].message});
   })
 })
 

@@ -81,14 +81,33 @@
 					<p>Subject:</p>
           <select class="" name="SubjectId">
 						<% if (edit_teacher.SubjectId == null){%>
-							<option value="">Unassigned</option>
-							<option value="">Kimia</option>
-							<option value="">Ekonomi</option>
+						  <option value="">Unassigned</option>
+						  <% for (var i = 0; i < edit_subject.length; i++) {%>
+						    <% if (edit_subject[i].id == edit_teacher.SubjectId){%>
+						      <option value="<%= edit_subject[i].id%>">
+						        <%= edit_subject[i].subject_name%>
+						      </option>
+						    <%} else {%>
+						      <option value="<%= edit_subject[i].id%>">
+						        <%= edit_subject[i].subject_name%>
+						      </option>
+						    <%}%>
+						  <%}%>
 						<%} else {%>
-							<option value="">Kimia</option>
-							<option value="">Ekonomi</option>
+						  <% for (var i = 0; i < edit_subject.length; i++) {%>
+						    <% if (edit_subject[i].id == edit_teacher.SubjectId){%>
+						      <option value="<%= edit_subject[i].id%>" selected>
+						        <%= edit_subject[i].subject_name%>
+						      </option>
+						    <%} else {%>
+						      <option value="<%= edit_subject[i].id%>">
+						        <%= edit_subject[i].subject_name%>
+						      </option>
+						    <%}%>
+						  <%}%>
 						<%}%>
           </select>
+					<br>
 					<br>
 					<button type="submit" class="btn btn-default" name="button">Submit</button>
 				</form>
