@@ -1,10 +1,9 @@
 {
     "development": {
-      "username": "anggie",
-      "password": "bnm",
-      "database": "anggraito",
+      "username": "hacktiv8-8",
+      "password": "password",
+      "database": "sqlizedb",
       "host": "localhost",
-      "port": 5000,
       "dialect": "postgres",
       "logging": false
   }

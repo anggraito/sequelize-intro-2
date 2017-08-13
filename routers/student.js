@@ -80,6 +80,50 @@ router.get('/delete/:id', (req, res)=>{
   })
 })
 
+router.get('/:id/addsubject', (req, res)=>{
+  model.StudentSubject.findAll()
+  .then((ss)=>{
+    model.Student.findById(req.params.id)
+    .then((student)=>{
+      model.Subject.findAll()
+      .then((subjects)=>{
+        // for (var i = 0; i < ss.length; i++) {
+        //   for (var j = 0; j < subjects.length; j++) {
+        //
+        //     ss[i].SubjectId = subjects[j].subject_name
+        //     console.log('============', ss[i].SubjectId);
+        //
+        //   }
+        //   //let studentName = student.first_name + ' '+ student.last_name
+        //   //ss[i].StudentId = studentName
+        //
+        //   //console.log(student.id);
+        // }
+        for (var i = 0; i < subjects.length; i++) {
+          for (var j = 0; j < ss.length; j++) {
+            if (ss[j].SubjectId === subjects[i].id) {
+              ss[j].SubjectName = subjects[i].subject_name
+              let studentName = student.first_name + ' '+ student.last_name
+              ss[j].StudentId = studentName
+            }
+          }
+        }
+        res.render('addSubjectStudent', {studentsub : ss, data_student : student, data_subject: subjects})
+      })
+    })
+  })
+  .catch((err)=>{
+    res.send(err)
+  })
+
+  //res.render('addSubjectStudent')
+})
+
+router.post('/:id/addsubject', (req, res)=>{
+  model.StudentSubject.create(req.body)
+  res.redirect(`/students/${req.params.id}/addsubject`)
+})
+
 
 
 

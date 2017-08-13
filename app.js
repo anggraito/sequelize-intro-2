@@ -23,6 +23,6 @@ app.use('/subjects', subject)
 app.use('/students', student)
 
 
-app.listen(5000, function(){
+app.listen(5002, function(){
 	console.log('Iam listen you on port 3000')
 })

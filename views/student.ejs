@@ -95,6 +95,7 @@
 		           <th>Last Name</th>
 							 <th>Full Name</th>
 		           <th>Email</th>
+							 <th>Assign Subjects</th>
 		           <th>Actions</th>
 		         </tr>
 		       </thead>
@@ -106,6 +107,7 @@
                 <td> <%= student.last_name %> </td>
 								<td> <%= student.first_name + ' ' + student.last_name %> </td>
 								<td> <%= student.email %> </td>
+								<td> <a href="/students/<%= student.id%>/addsubject">Add Subject</a></td>
 		            <td> <a href="/students/edit/<%= student.id %>">EDIT</a>
 								<a href="/students/delete/<%= student.id %>" onclick="return confirm('Delete this student?');">DELETE</a></td>
 		          </tr>
