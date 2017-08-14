@@ -2,10 +2,21 @@ var express = require('express');
 var router= express.Router();
 
 var model = require('../models');
+const userauth = require('../helpers/userauth.js');
+
+router.use((req, res, next)=>{
+  if(req.session.authority > 1){
+    next();
+  } else{
+    res.redirect('/dashboard')
+  }
+})
 
 router.get('/', (req, res)=>{
   model.Student.findAll()
   .then((students)=> {
+    // let userSession = req.session.login
+    // let getUserAuth = userauth.userRole(userSession.role)
     res.render('student', {data_students: students});
   });
 })
@@ -81,37 +92,25 @@ router.get('/delete/:id', (req, res)=>{
 })
 
 router.get('/:id/addsubject', (req, res)=>{
-  model.StudentSubject.findAll()
-  .then((ss)=>{
+  //model.StudentSubject.findAll()
+  //.then((ss)=>{
     model.Student.findById(req.params.id)
     .then((student)=>{
       model.Subject.findAll()
       .then((subjects)=>{
-        // for (var i = 0; i < ss.length; i++) {
-        //   for (var j = 0; j < subjects.length; j++) {
-        //
-        //     ss[i].SubjectId = subjects[j].subject_name
-        //     console.log('============', ss[i].SubjectId);
-        //
+        // for (var i = 0; i < subjects.length; i++) {
+        //   for (var j = 0; j < ss.length; j++) {
+        //     if (ss[j].SubjectId === subjects[i].id) {
+        //       ss[j].SubjectName = subjects[i].subject_name
+        //       let studentName = student.first_name + ' '+ student.last_name
+        //       ss[j].StudentId = studentName
+        //     }
         //   }
-        //   //let studentName = student.first_name + ' '+ student.last_name
-        //   //ss[i].StudentId = studentName
-        //
-        //   //console.log(student.id);
         // }
-        for (var i = 0; i < subjects.length; i++) {
-          for (var j = 0; j < ss.length; j++) {
-            if (ss[j].SubjectId === subjects[i].id) {
-              ss[j].SubjectName = subjects[i].subject_name
-              let studentName = student.first_name + ' '+ student.last_name
-              ss[j].StudentId = studentName
-            }
-          }
-        }
-        res.render('addSubjectStudent', {studentsub : ss, data_student : student, data_subject: subjects})
+        res.render('addSubjectStudent', {data_student : student, data_subject: subjects})
       })
     })
-  })
+  //})
   .catch((err)=>{
     res.send(err)
   })

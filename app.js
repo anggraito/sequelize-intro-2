@@ -2,6 +2,7 @@ const express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var session = require('express-session')
 
 
 app.set('view engine', 'ejs');
@@ -15,9 +16,19 @@ var index = require('./routers/index')
 var teacher = require('./routers/teacher')
 var subject = require('./routers/subject')
 var student = require('./routers/student')
+var dash = require ('./routers/dashboard')
+var login = require ('./routers/login')
 
+app.use(session({
+		secret: '%@$fsdg%@%@@#$dfgsf%@#$%@@#^&*()',
+		resave: false,
+		saveUninitialized: true,
+		cookie:{}
+}))
 
+app.use('/', login)
 app.use('/', index)
+app.use('/dashboard', dash)
 app.use('/teachers', teacher)
 app.use('/subjects', subject)
 app.use('/students', student)
